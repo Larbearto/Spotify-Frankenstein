@@ -1,7 +1,7 @@
 import { getToken } from 'next-auth/jwt'
 import { NextResponse } from 'next/server'
 
-export async function middleware(req) {
+export async function middleware(req, ev) {
 	// Token will exist if user is logged in
 	const token = await getToken({ req, secret: process.env.JWT_SECRET })
 
@@ -16,6 +16,6 @@ export async function middleware(req) {
 
 	// Redirect them to the login page if they don't have a token and are requesting a protected route.
 	if (!token && pathname !== '/login') {
-		return NextResponse.redirect('/login')
+		return NextResponse.redirect('./login')
 	}
 }
